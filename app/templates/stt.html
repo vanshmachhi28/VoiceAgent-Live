@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}STT Lab — Voice Agent Studio{% endblock %}
+
+
+{% block content %}
+
+<section class="page-heading">
+
+    <div class="eyebrow">
+        SPEECH TO TEXT
+    </div>
+
+    <h1>STT Lab</h1>
+
+    <p>
+        Record speech or upload an audio file and convert it into text.
+    </p>
+
+</section>
+
+
+<section class="input-grid">
+
+    <div class="input-card">
+
+        <div class="card-icon">🎙</div>
+
+        <h2>Microphone</h2>
+
+        <p>
+            Record manually and stop whenever you're finished.
+        </p>
+
+        <button
+            id="recordButton"
+            class="button primary"
+            onclick="startRecording()"
+        >
+            Start Recording
+        </button>
+
+        <div
+            id="recordingTimer"
+            class="recording-timer hidden"
+        >
+            00:00
+        </div>
+
+        <button
+            id="stopButton"
+            class="button danger hidden"
+            onclick="stopRecording()"
+        >
+            Stop Recording
+        </button>
+
+    </div>
+
+
+    <div class="input-card">
+
+        <div class="card-icon">📁</div>
+
+        <h2>Audio File</h2>
+
+        <p>
+            Upload a WAV or MP3 file from your computer.
+        </p>
+
+        <label class="file-button">
+
+            Choose Audio
+
+            <input
+                type="file"
+                id="audioFile"
+                accept=".wav,.mp3,audio/wav,audio/mpeg"
+                onchange="handleFileSelection(this)"
+            >
+
+        </label>
+
+    </div>
+
+</section>
+
+
+<section
+    id="selectedAudioCard"
+    class="audio-card hidden"
+>
+
+    <div class="audio-header">
+
+        <div>
+
+            <div class="eyebrow">
+                SELECTED AUDIO
+            </div>
+
+            <h2 id="audioName">
+                Audio
+            </h2>
+
+            <p id="audioMeta"></p>
+
+        </div>
+
+        <button
+            class="remove-button"
+            onclick="removeAudio()"
+            title="Remove audio"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <audio
+        id="audioPreview"
+        controls
+    ></audio>
+
+    <div class="audio-actions">
+
+    <button
+        class="button secondary"
+        onclick="recordAgain()"
+    >
+        🎙 Record Again
+    </button>
+
+    <button
+        class="button danger-outline"
+        onclick="removeAudio()"
+    >
+        Remove
+    </button>
+
+</div>
+
+</section>
+
+
+<section class="action-section">
+
+    <button
+        id="transcribeButton"
+        class="button primary large"
+        onclick="transcribeSelectedAudio()"
+        disabled
+    >
+        Transcribe Audio
+    </button>
+
+</section>
+
+
+<section
+    id="sttStatus"
+    class="status-box hidden"
+>
+</section>
+
+
+<section
+    id="transcriptionCard"
+    class="result-card hidden"
+>
+
+    <div class="eyebrow">
+        TRANSCRIPTION
+    </div>
+
+    <h2>Recognized Speech</h2>
+
+    <div
+        id="transcriptionResult"
+        class="result-text"
+    ></div>
+
+    <div class="model-info">
+        Model: faster-whisper · Base · CPU
+    </div>
+
+</section>
+
+{% endblock %}

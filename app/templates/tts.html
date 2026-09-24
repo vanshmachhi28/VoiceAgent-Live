@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}TTS Lab — Voice Agent Studio{% endblock %}
+
+
+{% block content %}
+
+<section class="page-heading">
+
+    <div class="eyebrow">
+        TEXT TO SPEECH
+    </div>
+
+    <h1>TTS Lab</h1>
+
+    <p>
+        Convert text into speech using the local system voice.
+    </p>
+
+</section>
+
+
+<section class="tts-card">
+
+    <label class="field-label">
+        Text to synthesize
+    </label>
+
+    <textarea
+        id="ttsText"
+        class="text-input"
+        placeholder="Enter the text you want the voice agent to speak..."
+    ></textarea>
+
+
+    <div class="settings-grid">
+
+        <div>
+
+            <label class="field-label">
+                Voice
+            </label>
+
+            <select
+                id="voiceSelect"
+                class="select-input"
+            >
+
+                {% for voice in voices %}
+
+                <option value="{{ voice.id }}">
+                    {{ voice.name }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label class="field-label">
+                Speech Rate
+            </label>
+
+            <div class="rate-control">
+
+                <input
+                    id="rate"
+                    type="range"
+                    min="120"
+                    max="200"
+                    value="160"
+                    oninput="updateRate(this.value)"
+                >
+
+                <span id="rateValue">
+                    160
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        id="generateButton"
+        class="button primary large"
+        onclick="generateSpeech()"
+    >
+        Generate Speech
+    </button>
+
+</section>
+
+
+<section
+    id="ttsStatus"
+    class="status-box hidden"
+>
+</section>
+
+
+<section
+    id="ttsResult"
+    class="audio-card hidden"
+>
+
+    <div class="eyebrow">
+        GENERATED AUDIO
+    </div>
+
+    <h2>Speech Output</h2>
+
+    <audio
+        id="ttsPlayer"
+        controls
+    ></audio>
+
+</section>
+
+{% endblock %}

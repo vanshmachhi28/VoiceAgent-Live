@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+faster-whisper
+pyttsx3
+sounddevice
+soundfile
+python-multipart
+jinja2
+imageio-ffmpeg

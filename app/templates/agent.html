@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% block title %}Voice Agent — Voice Agent Studio{% endblock %}
+
+
+{% block content %}
+
+<section class="page-heading">
+
+    <div class="eyebrow">
+        END TO END PIPELINE
+    </div>
+
+    <h1>Voice Agent</h1>
+
+    <p>
+        Audio in → Speech recognition → Response → Audio out
+    </p>
+
+</section>
+
+
+<section class="pipeline">
+
+    <div class="pipeline-step active">
+        <span>01</span>
+        Audio Input
+    </div>
+
+    <div class="pipeline-line"></div>
+
+    <div class="pipeline-step">
+        <span>02</span>
+        STT
+    </div>
+
+    <div class="pipeline-line"></div>
+
+    <div class="pipeline-step">
+        <span>03</span>
+        Response
+    </div>
+
+    <div class="pipeline-line"></div>
+
+    <div class="pipeline-step">
+        <span>04</span>
+        TTS
+    </div>
+
+</section>
+
+
+<section class="input-card agent-input">
+
+    <div class="eyebrow">
+        VOICE INPUT
+    </div>
+
+    <h2>Choose your audio source</h2>
+
+    <div class="source-grid">
+
+        <button
+            class="source-button"
+            onclick="openAgentRecorder()"
+        >
+            <strong>🎙 Microphone</strong>
+            <span>Record and stop manually</span>
+        </button>
+
+        <label class="source-button">
+
+            <strong>📁 Upload File</strong>
+
+            <span>WAV or MP3</span>
+
+            <input
+                type="file"
+                id="agentFile"
+                accept=".wav,.mp3,audio/wav,audio/mpeg"
+                onchange="handleAgentFile(this)"
+            >
+
+        </label>
+
+    </div>
+
+</section>
+
+
+<section
+    id="agentRecorder"
+    class="audio-card hidden"
+>
+
+    <div class="recording-panel">
+
+        <div class="recording-dot"></div>
+
+        <div>
+
+            <strong>Microphone Recording</strong>
+
+            <div
+                id="agentTimer"
+                class="timer"
+            >
+                00:00
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        id="agentRecordButton"
+        class="button primary"
+        onclick="startAgentRecording()"
+    >
+        Start Recording
+    </button>
+
+
+    <button
+        id="agentStopButton"
+        class="button danger hidden"
+        onclick="stopAgentRecording()"
+    >
+        Stop Recording
+    </button>
+
+</section>
+
+
+<section
+    id="agentAudioCard"
+    class="audio-card hidden"
+>
+
+    <div class="audio-header">
+
+        <div>
+
+            <div class="eyebrow">
+                INPUT AUDIO
+            </div>
+
+            <h2 id="agentAudioName">
+                Audio
+            </h2>
+
+            <p id="agentAudioMeta"></p>
+
+        </div>
+
+        <button
+            class="remove-button"
+            onclick="removeAgentAudio()"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <audio
+        id="agentAudioPreview"
+        controls
+    ></audio>
+
+
+    <div class="audio-actions">
+
+    <button
+        class="button secondary"
+        onclick="recordAgentAgain()"
+    >
+        🎙 Record Again
+    </button>
+
+    <button
+        class="button danger-outline"
+        onclick="removeAgentAudio()"
+    >
+        Remove
+    </button>
+
+</div>
+
+</section>
+
+
+<section class="action-section">
+
+    <button
+        id="runAgentButton"
+        class="button primary large"
+        onclick="runVoiceAgent()"
+        disabled
+    >
+        Run Voice Agent
+    </button>
+
+</section>
+
+
+<section
+    id="agentStatus"
+    class="status-box hidden"
+>
+</section>
+
+
+<section
+    id="agentResults"
+    class="results-grid hidden"
+>
+
+    <div class="result-card">
+
+        <div class="eyebrow">
+            SPEECH TO TEXT
+        </div>
+
+        <h2>You said</h2>
+
+        <div
+            id="agentTranscription"
+            class="result-text"
+        ></div>
+
+    </div>
+
+
+    <div class="result-card">
+
+        <div class="eyebrow">
+            RESPONSE ENGINE
+        </div>
+
+        <h2>Agent response</h2>
+
+        <div
+            id="agentResponse"
+            class="result-text"
+        ></div>
+
+    </div>
+
+
+    <div class="result-card full-width">
+
+        <div class="eyebrow">
+            TEXT TO SPEECH
+        </div>
+
+        <h2>Generated audio</h2>
+
+        <audio
+            id="agentOutputPlayer"
+            controls
+        ></audio>
+
+    </div>
+
+</section>
+
+{% endblock %}

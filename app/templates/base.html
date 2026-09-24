@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}Voice Agent Studio{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="/stt" class="brand">
+        <span class="brand-mark">V</span>
+        <span>Voice Agent Studio</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a
+            href="/stt"
+            class="{% if request.url.path == '/stt' or request.url.path == '/' %}active{% endif %}"
+        >
+            STT Lab
+        </a>
+
+        <a
+            href="/tts"
+            class="{% if request.url.path == '/tts' %}active{% endif %}"
+        >
+            TTS Lab
+        </a>
+
+        <a
+            href="/agent"
+            class="{% if request.url.path == '/agent' %}active{% endif %}"
+        >
+            Voice Agent
+        </a>
+
+    </div>
+
+    <div class="local-status">
+        <span></span>
+        Local
+    </div>
+
+</nav>
+
+
+<main class="page-container">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<footer class="footer">
+
+    <span>FastAPI</span>
+    <span>•</span>
+    <span>faster-whisper</span>
+    <span>•</span>
+    <span>pyttsx3</span>
+
+</footer>
+
+
+<script src="{{ url_for('static', path='app.js') }}"></script>
+
+</body>
+</html>
