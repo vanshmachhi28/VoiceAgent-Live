@@ -251,8 +251,9 @@ The project demonstrates the complete flow of:
 
 using locally running technologies.
 
-## Author
+## Developer
 
-**Vansh Machhi**
+**Vansh Machhi**  
 
 GitHub: https://github.com/vanshmachhi28
+Email: machhivansh470@gmail.com
